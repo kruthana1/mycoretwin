@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.O.R.E. Manifesto - Digital Twin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Black & Gold -->
+    <!-- Application Structure Plan: The SPA is designed as a single-page, scrollable dashboard. The information architecture prioritizes a top-down narrative flow, starting with the core philosophy (Prime Oath), moving to analytical insights (Creative Dashboard), historical evidence (Truth Card Archive), self-accountability (GAP Tracker), and finally, context (Reflections & Credits). This non-linear dashboard structure was chosen over a rigid, chapter-by-chapter format to allow users to quickly access the most dynamic, data-driven parts of the manifesto, reflecting the living, breathing nature of the C.O.R.E. system. Key interactions include clickable-reveal text, chart hovers for deep-dive data, and dynamic card filtering. -->
+    <!-- Visualization & Content Choices: Data from the Source Report (the Codex) is presented with specific goals. Music/Location data's goal is to COMPARE creative conditions, realized through a Chart.js Bar Chart and a custom HTML/CSS Heatmap for clear visual comparison. VOJ/Risk data's goal is to show CHANGE over time, best represented by a Chart.js Line Chart and a Doughnut Chart (for the meter), which excel at showing trends and progress. The Truth Cards' goal is to ORGANIZE historical insights, achieved with a filterable HTML grid. This structure supports the user's journey from high-level philosophy to granular, evidence-based analysis. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #FFFFFF;
+        }
+        .text-gold-primary { color: #FFD700; }
+        .text-gold-secondary { color: #DAA520; }
+        .bg-gold-primary { background-color: #FFD700; }
+        .border-gold-primary { border-color: #FFD700; }
+        .border-gold-secondary { border-color: #DAA520; }
+        .shadow-gold { box-shadow: 0 4px 14px 0 rgba(255, 215, 0, 0.2); }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            max-height: 50vh;
+        }
+    </style>
+</head>
+<body class="bg-[#121212]">
+
+    <!-- Header & Navigation -->
+    <header class="bg-[#181818]/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gold-secondary/20">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gold-primary">C.O.R.E. Digital Twin</h1>
+            <div class="hidden md:flex space-x-6 text-sm">
+                <a href="#oath" class="hover:text-gold-primary transition-colors duration-300">Prime Oath</a>
+                <a href="#dashboard" class="hover:text-gold-primary transition-colors duration-300">Dashboard</a>
+                <a href="#archive" class="hover:text-gold-primary transition-colors duration-300">Archive</a>
+                <a href="#gap" class="hover:text-gold-primary transition-colors duration-300">GAP</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#oath" class="block py-2 hover:text-gold-primary transition-colors duration-300">Prime Oath</a>
+            <a href="#dashboard" class="block py-2 hover:text-gold-primary transition-colors duration-300">Dashboard</a>
+            <a href="#archive" class="block py-2 hover:text-gold-primary transition-colors duration-300">Archive</a>
+            <a href="#gap" class="block py-2 hover:text-gold-primary transition-colors duration-300">GAP</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Section 1: The Prime Oath -->
+        <section id="oath" class="text-center mb-24">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gold-primary mb-6">The Prime Oath</h2>
+            <p class="max-w-4xl mx-auto text-xl md:text-2xl text-gray-300 leading-relaxed font-light">
+                This is the immutable core, the foundational philosophy that guides the entire C.O.R.E. system. Each phrase is a pillar of my creative identity. Click any phrase to reveal its deeper meaning.
+            </p>
+            <div class="mt-12 text-2xl md:text-3xl font-semibold leading-loose">
+                <span class="interactive-phrase cursor-pointer hover:text-gold-primary transition-colors duration-300" data-target="phrase-1">I break fences,</span>
+                <span class="interactive-phrase cursor-pointer hover:text-gold-primary transition-colors duration-300" data-target="phrase-2">build kingdoms,</span>
+                <span class="interactive-phrase cursor-pointer hover:text-gold-primary transition-colors duration-300" data-target="phrase-3">and stay untamed</span>
+                <span class="block text-gray-400">—</span>
+                <span class="interactive-phrase cursor-pointer hover:text-gold-primary transition-colors duration-300" data-target="phrase-4">rewriting my truth one idea at a time,</span>
+                <span class="interactive-phrase cursor-pointer hover:text-gold-primary transition-colors duration-300" data-target="phrase-5">or burning it if I fail to grow.</span>
+            </div>
+            
+            <!-- Hidden Explanations -->
+            <div id="explanations" class="mt-8 max-w-3xl mx-auto text-left">
+                <div id="phrase-1" class="hidden explanation-content p-6 bg-[#181818] border border-gold-secondary/20 rounded-lg">
+                    <h3 class="font-bold text-gold-primary mb-2">Break Fences</h3>
+                    <p class="text-gray-300">This signifies a relentless commitment to deconstruction. It’s the refusal to accept artificial boundaries, intellectual comfort zones, or calcified dogmas that stifle innovation. It's about the strategic dismantling of limitations to pave the way for virgin territory.</p>
+                </div>
+                <div id="phrase-2" class="hidden explanation-content p-6 bg-[#181818] border border-gold-secondary/20 rounded-lg">
+                    <h3 class="font-bold text-gold-primary mb-2">Build Kingdoms</h3>
+                    <p class="text-gray-300">This is the constructive, generative force. It’s about crafting entire domains of influence, weaving disparate ideas into coherent, impactful systems. It speaks to the ambition of scale and manifesting visions that resonate far beyond the immediate.</p>
+                </div>
+                <div id="phrase-3" class="hidden explanation-content p-6 bg-[#181818] border border-gold-secondary/20 rounded-lg">
+                    <h3 class="font-bold text-gold-primary mb-2">Stay Untamed</h3>
+                    <p class="text-gray-300">This is the immutable spirit, the wild heart of the endeavor. It’s the resistance to conformity, the rejection of domestication, and the fierce protection of innate curiosity and spontaneity. It's the assurance that my core self remains unbound.</p>
+                </div>
+                <div id="phrase-4" class="hidden explanation-content p-6 bg-[#181818] border border-gold-secondary/20 rounded-lg">
+                    <h3 class="font-bold text-gold-primary mb-2">Rewriting My Truth</h3>
+                    <p class="text-gray-300">Growth is a constant negotiation with previous iterations. This system is designed for rewriting, for evolving truth. It's a continuous dialogue between the 'me' of yesterday and the 'me' of tomorrow, acknowledging that past truths are stepping stones, not final destinations.</p>
+                </div>
+                <div id="phrase-5" class="hidden explanation-content p-6 bg-[#181818] border border-gold-secondary/20 rounded-lg">
+                    <h3 class="font-bold text-gold-primary mb-2">Burning It If I Fail to Grow</h3>
+                    <p class="text-gray-300">This is the ultimate accountability. It's a commitment to active, conscious evolution. If a truth becomes a comfortable cage instead of a launchpad, it must be ceremonially destroyed to make way for new growth. It is the ritualistic act of letting go.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Creative Dashboard -->
+        <section id="dashboard" class="mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gold-primary mb-4">Creative Dashboard</h2>
+            <p class="text-center max-w-2xl mx-auto text-gray-400 mb-12">An analytical look into my creative process. This section visualizes the unseen forces that shape my work, turning subjective feelings into objective data points for reflection and improvement.</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Music Impact Chart -->
+                <div class="bg-[#181818] p-6 rounded-lg border border-gold-secondary/20 shadow-gold">
+                    <h3 class="font-bold text-lg text-gold-primary mb-4">Flow State vs. Music Genre</h3>
+                    <p class="text-xs text-gray-400 mb-4">Average duration of uninterrupted creative flow, correlated with the auditory environment. Reveals which soundscapes best fuel different types of creative work.</p>
+                    <div class="chart-container">
+                        <canvas id="musicImpactChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Location Productivity Chart -->
+                <div class="bg-[#181818] p-6 rounded-lg border border-gold-secondary/20 shadow-gold">
+                    <h3 class="font-bold text-lg text-gold-primary mb-4">Location Productivity Heatmap</h3>
+                     <p class="text-xs text-gray-400 mb-4">A visualization of creative energy and output across different physical environments. Darker gold indicates higher productivity and more frequent breakthroughs.</p>
+                    <div id="locationHeatmap" class="grid grid-cols-3 gap-4 mt-8 h-[350px]">
+                        <!-- Heatmap cells will be generated by JS -->
+                    </div>
+                </div>
+
+                <!-- VOJ Trend Chart -->
+                <div class="bg-[#181818] p-6 rounded-lg border border-gold-secondary/20 shadow-gold">
+                    <h3 class="font-bold text-lg text-gold-primary mb-4">Voice of Judgment (VOJ) Trend</h3>
+                    <p class="text-xs text-gray-400 mb-4">Tracks the perceived intensity of the inner critic over the course of a project. Helps identify patterns and triggers for self-doubt, turning it into a manageable variable.</p>
+                    <div class="chart-container">
+                        <canvas id="vojTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Risk Muscle Chart -->
+                <div class="bg-[#181818] p-6 rounded-lg border border-gold-secondary/20 shadow-gold">
+                    <h3 class="font-bold text-lg text-gold-primary mb-4">Risk Muscle Growth</h3>
+                    <p class="text-xs text-gray-400 mb-4">A metaphorical meter tracking the deliberate engagement in creative risks, from prototyping wild ideas to embracing vulnerability. Growth is earned, not given.</p>
+                     <div class="chart-container flex items-center justify-center">
+                        <canvas id="riskMuscleChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Truth Card Archive -->
+        <section id="archive" class="mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gold-primary mb-4">Truth Card Archive</h2>
+            <p class="text-center max-w-2xl mx-auto text-gray-400 mb-12">A living library of my evolving creative principles. Each card represents a key insight from a specific period, captured and then, often, ceremonially destroyed to make way for new growth. This archive preserves their wisdom.</p>
+            
+            <!-- Filter Controls -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="breakthrough">Breakthrough</button>
+                <button class="filter-btn" data-filter="process">Process</button>
+                <button class="filter-btn" data-filter="mindset">Mindset</button>
+                <button class="filter-btn" data-filter="failure">Failure</button>
+            </div>
+
+            <!-- Card Grid -->
+            <div id="card-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Truth cards will be generated by JS -->
+            </div>
+        </section>
+
+        <!-- Section 4: GAP Statement -->
+        <section id="gap" class="mb-24">
+            <div class="bg-[#181818] p-8 rounded-lg border border-gold-secondary/20 shadow-gold">
+                <h2 class="text-3xl font-bold text-center text-gold-primary mb-4">GAP Statement: Confronting the Polish</h2>
+                <p class="text-center max-w-2xl mx-auto text-gray-300 mb-8">My core creative GAP is a **tendency to polish endlessly**, often at the expense of shipping and learning. This tracker is my public (to myself) accountability mechanism for combating this, prioritizing progress over perfection.</p>
+                
+                <h4 class="font-semibold text-gold-secondary text-center mb-2">Project Deadline Adherence</h4>
+                <div class="w-full bg-gray-700 rounded-full h-4 mb-8">
+                    <div class="bg-gradient-to-r from-gold-secondary to-gold-primary h-4 rounded-full" style="width: 75%"></div>
+                </div>
+
+                <h4 class="font-semibold text-gold-secondary text-center mb-4">Minimum Viable Product (MVP) Delivery Log</h4>
+                <div class="max-w-md mx-auto space-y-3">
+                    <div class="bg-[#121212] p-3 rounded-md text-sm">
+                        <p class="font-semibold text-white">Project: A.N.T. Farm Concept</p>
+                        <p class="text-gray-400">Outcome: Shipped MVP deck. Forced early feedback, saving 20+ hours of unnecessary refinement.</p>
+                    </div>
+                    <div class="bg-[#121212] p-3 rounded-md text-sm">
+                        <p class="font-semibold text-white">Project: C4 Photoshoot Plan</p>
+                        <p class="text-gray-400">Outcome: Delivered core concept before full moodboard. Allowed for faster collaboration and idea validation.</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8 p-4 border-t border-gold-secondary/20">
+                     <p class="text-gold-secondary italic">"True creation is about courageous release... The friction produces the fire."</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <style>
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(218, 165, 32, 0.4);
+            border-radius: 9999px;
+            background-color: transparent;
+            color: #DAA520;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+        .filter-btn:hover {
+            background-color: rgba(218, 165, 32, 0.2);
+            color: #FFD700;
+        }
+        .filter-btn.active {
+            background-color: #DAA520;
+            color: #121212;
+            font-weight: 600;
+        }
+    </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    const musicData = {
+        labels: ['Reflective (Drake)', 'Energetic (EDM)', 'Precision (Classical)', 'Immersion (Silence)'],
+        data: [55, 35, 60, 25],
+        notes: [
+            "Ideal for deep conceptual work and narrative construction.",
+            "Best for high-volume, uninhibited ideation and breaking blocks.",
+            "Enhances focus for detailed editing and logical structuring.",
+            "Crucial for unbiased critical review and connecting with pure intuition."
+        ]
+    };
+
+    const locationData = [
+        { name: 'Apartment', productivity: 7 },
+        { name: 'FSB', productivity: 8 },
+        { name: 'Home', productivity: 9 },
+        { name: 'Coffee Shops', productivity: 6 },
+        { name: 'Cintrifuse', productivity: 10 },
+        { name: 'Outdoors', productivity: 5 }
+    ];
+
+    const vojData = {
+        labels: ['Phase 1: Clarify', 'Phase 2: Ideate', 'Phase 3: Converge', 'Phase 4: Develop', 'Phase 5: Implement', 'Phase 6: Reflect'],
+        data: [3, 7, 8, 6, 4, 2]
+    };
+    
+    const riskMuscleData = {
+        value: 85
+    };
+
+    const truthCards = [
+        { id: 1, title: "Second-Right Answers", content: "The first, most obvious solution is rarely the most impactful. True novelty is found in the persistent excavation beyond the surface. Trust the process of divergence.", date: "Q1 2025", category: "breakthrough" },
+        { id: 2, title: "Ritual Over Inspiration", content: "Creativity isn't a passive waiting game. It's a cultivation. Consistent, intentional ritual breathes life into intention and invites the muse, rather than depending on its unpredictable arrival.", date: "Q1 2025", category: "process" },
+        { id: 3, title: "Embrace the Burn", content: "Letting go of an outdated truth isn't failure; it's growth. The act of 'burning' a card is a necessary sacrifice to prevent stagnation and make space for a more evolved understanding.", date: "Q2 2025", category: "mindset" },
+        { id: 4, title: "The VOJ as a Consultant", content: "The Voice of Judgment isn't an enemy to be silenced, but a skeptical consultant to be managed. Harness its analytical power for refinement, but never let it veto raw ideation.", date: "Q2 2025", category: "mindset" },
+        { id: 5, title: "Data is Self-Knowledge", content: "Tracking my own creative process (flow, location, music) isn't just an exercise. It is the act of transforming implicit intuition into explicit, actionable knowledge. Know thyself, create better.", date: "Q3 2025", category: "process" },
+        { id: 6, title: "Ship to Learn", content: "Endless polishing is a form of fear. Shipping an 80% solution to learn from real-world interaction is more valuable than perfecting a 100% solution in a vacuum. This directly combats my GAP.", date: "Q3 2025", category: "failure" },
+        { id: 7, title: "Physicality Anchors Belief", content: "The tactile nature of the relic—the weight of the metal card, the texture of the paper—grounds abstract principles in physical reality, making them more potent and harder to ignore.", date: "Q4 2025", category: "breakthrough" },
+        { id: 8, title: "Failure is Data", content: "An idea that doesn't work isn't a waste. It's a valuable data point that narrows the field and clarifies the path forward. Collect failure like a scientist collects specimens.", date: "Q4 2025", category: "failure" },
+    ];
+
+    const musicCtx = document.getElementById('musicImpactChart').getContext('2d');
+    new Chart(musicCtx, {
+        type: 'bar',
+        data: {
+            labels: musicData.labels,
+            datasets: [{
+                label: 'Average Flow State (Minutes)',
+                data: musicData.data,
+                backgroundColor: 'rgba(255, 215, 0, 0.6)',
+                borderColor: 'rgba(255, 215, 0, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    ticks: { color: '#FFF' }
+                },
+                y: {
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#FFF',
+                              callback: function(value, index, values) {
+                                  let label = this.getLabelForValue(value);
+                                  if (label.length > 16) {
+                                      return label.split(' ').map((word, i) => i === 0 ? word : (word.length > 8 ? word.substring(0, 8) + '...' : word));
+                                  }
+                                  return label;
+                              }
+                     }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        afterBody: function(context) {
+                            return musicData.notes[context[0].dataIndex];
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const vojCtx = document.getElementById('vojTrendChart').getContext('2d');
+    new Chart(vojCtx, {
+        type: 'line',
+        data: {
+            labels: vojData.labels,
+            datasets: [{
+                label: 'VOJ Intensity',
+                data: vojData.data,
+                fill: false,
+                borderColor: '#FFD700',
+                tension: 0.4,
+                pointBackgroundColor: '#FFD700',
+                pointRadius: 5
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 10,
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    ticks: { color: '#FFF' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#FFF',
+                              callback: function(value, index, values) {
+                                  let label = this.getLabelForValue(value);
+                                  if (label.length > 16) {
+                                      return label.split(' ').map((word, i) => i === 0 ? word : (word.length > 8 ? word.substring(0, 8) + '...' : word));
+                                  }
+                                  return label;
+                              }
+                     }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+    
+    const riskCtx = document.getElementById('riskMuscleChart').getContext('2d');
+    new Chart(riskCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Risk Muscle', 'Room to Grow'],
+            datasets: [{
+                data: [riskMuscleData.value, 100 - riskMuscleData.value],
+                backgroundColor: ['#FFD700', '#4A5568'],
+                borderColor: '#181818',
+                borderWidth: 4,
+                circumference: 180,
+                rotation: 270,
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: { display: false },
+                tooltip: { enabled: false },
+            }
+        }
+    });
+
+    const heatmapContainer = document.getElementById('locationHeatmap');
+    const sortedLocations = [...locationData].sort((a, b) => b.productivity - a.productivity);
+    const maxProd = sortedLocations[0].productivity;
+    sortedLocations.forEach(location => {
+        const cell = document.createElement('div');
+        const opacity = location.productivity / maxProd;
+        cell.className = `flex items-center justify-center p-2 rounded-md text-center transition-all duration-300 font-semibold`;
+        cell.style.backgroundColor = `rgba(255, 215, 0, ${opacity})`;
+        cell.style.color = opacity > 0.6 ? '#121212' : '#FFFFFF';
+        cell.innerHTML = `<span>${location.name}</span>`;
+        heatmapContainer.appendChild(cell);
+    });
+    
+    const cardGrid = document.getElementById('card-grid');
+    truthCards.forEach(card => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'truth-card bg-[#181818] p-6 rounded-lg border border-gold-secondary/10 transition-all duration-300 hover:shadow-gold hover:border-gold-secondary/40';
+        cardEl.setAttribute('data-category', card.category);
+        cardEl.innerHTML = `
+            <h4 class="font-bold text-lg text-gold-primary mb-2">${card.title}</h4>
+            <p class="text-gray-300 text-sm mb-4">${card.content}</p>
+            <p class="text-xs text-gold-secondary/70">${card.date}</p>
+        `;
+        cardGrid.appendChild(cardEl);
+    });
+
+    const phrases = document.querySelectorAll('.interactive-phrase');
+    const explanations = document.querySelectorAll('.explanation-content');
+    phrases.forEach(phrase => {
+        phrase.addEventListener('click', () => {
+            const targetId = phrase.dataset.target;
+            const targetExplanation = document.getElementById(targetId);
+
+            explanations.forEach(exp => {
+                if(exp.id !== targetId) exp.classList.add('hidden');
+            });
+            phrases.forEach(p => {
+                if(p !== phrase) p.classList.remove('text-gold-primary');
+            });
+            
+            targetExplanation.classList.toggle('hidden');
+            phrase.classList.toggle('text-gold-primary');
+        });
+    });
+    
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.truth-card');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const filter = btn.dataset.filter;
+            
+            cards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>
