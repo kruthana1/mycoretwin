@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Black & Gold -->
-    <!-- Application Structure Plan: The SPA is designed as a single-page, scrollable dashboard. The information architecture prioritizes a top-down narrative flow, starting with the core philosophy (Prime Oath), moving to analytical insights (Creative Dashboard), historical evidence (Truth Card Archive), self-accountability (GAP Tracker), and finally, context (Reflections & Credits). This non-linear dashboard structure was chosen over a rigid, chapter-by-chapter format to allow users to quickly access the most dynamic, data-driven parts of the manifesto, reflecting the living, breathing nature of the C.O.R.E. system. Key interactions include clickable-reveal text, chart hovers for deep-dive data, and dynamic card filtering. -->
+    <!-- Application Structure Plan: The SPA is designed as a single-page, scrollable dashboard. The information architecture prioritizes a top-down narrative flow, starting with the core philosophy (Prime Oath), moving to analytical insights (Creative Dashboard), historical evidence (Truth Card Archive), and finally, a reflective reminder before the final context. This non-linear dashboard structure was chosen over a rigid, chapter-by-chapter format to allow users to quickly access the most dynamic, data-driven parts of the manifesto, reflecting the living, breathing nature of the C.O.R.E. system. Key interactions include clickable-reveal text, chart hovers for deep-dive data, and dynamic card filtering. -->
     <!-- Visualization & Content Choices: Data from the Source Report (the Codex) is presented with specific goals. Music/Location data's goal is to COMPARE creative conditions, realized through a Chart.js Bar Chart and a custom HTML/CSS Heatmap for clear visual comparison. VOJ/Risk data's goal is to show CHANGE over time, best represented by a Chart.js Line Chart and a Doughnut Chart (for the meter), which excel at showing trends and progress. The Truth Cards' goal is to ORGANIZE historical insights, achieved with a filterable HTML grid. This structure supports the user's journey from high-level philosophy to granular, evidence-based analysis. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -43,7 +43,6 @@
                 <a href="#oath" class="hover:text-gold-primary transition-colors duration-300">Prime Oath</a>
                 <a href="#dashboard" class="hover:text-gold-primary transition-colors duration-300">Dashboard</a>
                 <a href="#archive" class="hover:text-gold-primary transition-colors duration-300">Archive</a>
-                <a href="#gap" class="hover:text-gold-primary transition-colors duration-300">GAP</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-white">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -54,7 +53,6 @@
             <a href="#oath" class="block py-2 hover:text-gold-primary transition-colors duration-300">Prime Oath</a>
             <a href="#dashboard" class="block py-2 hover:text-gold-primary transition-colors duration-300">Dashboard</a>
             <a href="#archive" class="block py-2 hover:text-gold-primary transition-colors duration-300">Archive</a>
-            <a href="#gap" class="block py-2 hover:text-gold-primary transition-colors duration-300">GAP</a>
         </div>
     </header>
 
@@ -164,32 +162,10 @@
             </div>
         </section>
 
-        <!-- Section 4: GAP Statement -->
-        <section id="gap" class="mb-24">
-            <div class="bg-[#181818] p-8 rounded-lg border border-gold-secondary/20 shadow-gold">
-                <h2 class="text-3xl font-bold text-center text-gold-primary mb-4">GAP Statement: Confronting the Polish</h2>
-                <p class="text-center max-w-2xl mx-auto text-gray-300 mb-8">My core creative GAP is a **tendency to polish endlessly**, often at the expense of shipping and learning. This tracker is my public (to myself) accountability mechanism for combating this, prioritizing progress over perfection.</p>
-                
-                <h4 class="font-semibold text-gold-secondary text-center mb-2">Project Deadline Adherence</h4>
-                <div class="w-full bg-gray-700 rounded-full h-4 mb-8">
-                    <div class="bg-gradient-to-r from-gold-secondary to-gold-primary h-4 rounded-full" style="width: 75%"></div>
-                </div>
-
-                <h4 class="font-semibold text-gold-secondary text-center mb-4">Minimum Viable Product (MVP) Delivery Log</h4>
-                <div class="max-w-md mx-auto space-y-3">
-                    <div class="bg-[#121212] p-3 rounded-md text-sm">
-                        <p class="font-semibold text-white">Project: A.N.T. Farm Concept</p>
-                        <p class="text-gray-400">Outcome: Shipped MVP deck. Forced early feedback, saving 20+ hours of unnecessary refinement.</p>
-                    </div>
-                    <div class="bg-[#121212] p-3 rounded-md text-sm">
-                        <p class="font-semibold text-white">Project: C4 Photoshoot Plan</p>
-                        <p class="text-gray-400">Outcome: Delivered core concept before full moodboard. Allowed for faster collaboration and idea validation.</p>
-                    </div>
-                </div>
-
-                <div class="text-center mt-8 p-4 border-t border-gold-secondary/20">
-                     <p class="text-gold-secondary italic">"True creation is about courageous release... The friction produces the fire."</p>
-                </div>
+        <!-- Section 4: Potential Reminder -->
+        <section id="potential-reminder" class="text-center my-24">
+            <div class="p-8 bg-[#181818] rounded-lg border border-gold-secondary/20 shadow-gold max-w-3xl mx-auto">
+                <p class="text-xl md:text-2xl font-bold text-gold-primary">"What is the bridge between you and your potential?"</p>
             </div>
         </section>
 
@@ -260,10 +236,10 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 2, title: "Ritual Over Inspiration", content: "Creativity isn't a passive waiting game. It's a cultivation. Consistent, intentional ritual breathes life into intention and invites the muse, rather than depending on its unpredictable arrival.", date: "Q1 2025", category: "process" },
         { id: 3, title: "Embrace the Burn", content: "Letting go of an outdated truth isn't failure; it's growth. The act of 'burning' a card is a necessary sacrifice to prevent stagnation and make space for a more evolved understanding.", date: "Q2 2025", category: "mindset" },
         { id: 4, title: "The VOJ as a Consultant", content: "The Voice of Judgment isn't an enemy to be silenced, but a skeptical consultant to be managed. Harness its analytical power for refinement, but never let it veto raw ideation.", date: "Q2 2025", category: "mindset" },
-        { id: 5, title: "Data is Self-Knowledge", content: "Tracking my own creative process (flow, location, music) isn't just an exercise. It is the act of transforming implicit intuition into explicit, actionable knowledge. Know thyself, create better.", date: "Q3 2025", category: "process" },
-        { id: 6, title: "Ship to Learn", content: "Endless polishing is a form of fear. Shipping an 80% solution to learn from real-world interaction is more valuable than perfecting a 100% solution in a vacuum. This directly combats my GAP.", date: "Q3 2025", category: "failure" },
-        { id: 7, title: "Physicality Anchors Belief", content: "The tactile nature of the relic—the weight of the metal card, the texture of the paper—grounds abstract principles in physical reality, making them more potent and harder to ignore.", date: "Q4 2025", category: "breakthrough" },
-        { id: 8, title: "Failure is Data", content: "An idea that doesn't work isn't a waste. It's a valuable data point that narrows the field and clarifies the path forward. Collect failure like a scientist collects specimens.", date: "Q4 2025", category: "failure" },
+        { id: 5, title: "Data is Self-Knowledge", content: "Tracking my own creative process (flow, location, music) isn't just an exercise. It is the act of transforming implicit intuition into explicit, actionable knowledge. Know thyself, create better.", date: "Q1 2025", category: "process" },
+        { id: 6, title: "Ship to Learn", content: "Endless polishing is a form of fear. Shipping an 80% solution to learn from real-world interaction is more valuable than perfecting a 100% solution in a vacuum. This directly combats my GAP.", date: "Q2 2025", category: "failure" },
+        { id: 7, title: "Physicality Anchors Belief", content: "The tactile nature of the relic—the weight of the metal card, the texture of the paper—grounds abstract principles in physical reality, making them more potent and harder to ignore.", date: "Q1 2025", category: "breakthrough" },
+        { id: 8, title: "Failure is Data", content: "An idea that doesn't work isn't a waste. It's a valuable data point that narrows the field and clarifies the path forward. Collect failure like a scientist collects specimens.", date: "Q2 2025", category: "failure" },
     ];
 
     const musicCtx = document.getElementById('musicImpactChart').getContext('2d');
